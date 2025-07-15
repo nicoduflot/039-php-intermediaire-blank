@@ -272,8 +272,109 @@ $frere->contenuCoffre();
                 <p>
                     Normalement, on ne peut que créer des comptes à intérêts ou des comptes chèques, donc la classe mère Compte devrait être une classe abstraite, définissant tous les attributs et toutes les méthodes communes aux classes filles, et seulement dans les classes filles on définit les méthodes qui sont différentes.
                 </p>
+                <p>
+                    La classe mère étant définie en tant que classe abstraite ne sera pas invocable (impossible de créer une instance de cette classe). Elle servira de modèle général pour toutes les classes enfants.
+                </p>
+                <p>
+                    Tous le attributs et les méthodes privées (en protected) seront utilisables et implémentées directement par les classes filles.
+                </p>
+                <p>
+                    En revanche, si une méthode, utilisée par toutes les classes filles mais dont le résultat ou comportement est différent, la méthode est déclarée abstraite dans la classe mère : on ne fait que la déclaration de la méthode dans la classe mère mais il devient alors OBLIGATOIRE de la déclarer et de l'implémenter dans TOUTES les classes filles.
+                </p>
+                <p>
+                    Un classe mère Perso, qui implémente les attributs et les méthode communes au classe filles.
+                </p>
+                <p>
+                    Chaque classe fille aura une méthode multi (un coup spécial) mais son utilisation varie énormément par type de personnage.
+                </p>
+                <p>
+                    Cette méthode est donc déclarée en méthode abstraite dans la classe abstraite et devra obligatoirement être implémentée dans toutes les classes filles.
+                </p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3>La classe Perso</h3>
+                <code>
+                    <pre>
+&lt?php
+namespace JDR;
+abstract class Perso{
+    protected $nom;
+    public function __construct($nom){
+        $this->nom = $nom;
+    }
+    
+    /**
+    * Get the value of nom
+    */ 
+    public function getNom()
+    {
+        return $this->nom;
+    }
+    
+    /**
+    * Set the value of nom
+    *
+    * @return  self
+    */ 
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    
+        return $this;
+    }
+    
+    public function taper(Perso $perso){
+        return $this->nom . ' tape '. $perso->nom . '&lt;br /&gt;';
+    }
+    
+    abstract protected function multi(Perso $cible);
+}
+                    </pre>
+                </code>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>La classe Voleur</h3>
+                <code>
+                    <pre>
+&lt;?php
+namespace JDR;
+use JDR\Perso;
+
+class Voleur extends Perso{
+    public function __construct($nom)
+    {
+        parent::__construct($nom);
+    }
+
+    public function multi(Perso $cible){
+        return $this->nom . ' tape par derrière le coquin '. $cible->nom . '&lt;br /&gt;';
+    }
+}
+                    </pre>
+                </code>
+                        <h3>La classe Guerrier</h3>
+                <code>
+                    <pre>
+&lt;?php
+namespace JDR;
+use JDR\Perso;
+
+class Guerrier extends Perso{
+    public function __construct($nom)
+    {
+        parent::__construct($nom);
+    }
+
+    public function multi(Perso $cible){
+        return $this->nom . ' tape super fort '. $cible->nom . '&lt;br /&gt;';
+    }
+}
+                    </pre>
+                </code>
+                    </div>
+                </div>
                 <?php
-                
+
                 ?>
             </article>
         </section>
@@ -312,18 +413,18 @@ $frere->contenuCoffre();
                 <p>
                     On utilise le mot <code>interface</code> à la place du mot <code>class</code>
                 </p>
-                <p>
-                    <code>
-                        &lt;?php<br />
-                        namespace App\Utrain;<br />
-                        interface Interface_Utrain{<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public const PRIXABO = 15;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getNomUtilisateur();<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function setPrixAbo();<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getPrixAbo();<br />
-                        }
-                    </code>
-                </p>
+                <code>
+                    <pre>
+&lt;?php
+namespace App\Utrain;
+interface Utrain_Interface{
+    public const PRIXABO = 15;
+    public function getNomUtilisateur();
+    public function setPrixAbo();
+    public function getPrixAbo();
+}
+                    </pre>
+                </code>
                 <p>
                     Dans les personnes qui prennent des abonnements, il y a des personne qui travaillent à U-train. Certains seront Cadre et paieront moins chers que les non cadres.
                     Les personnes du public, si elles font parties de la police elle paieront moins chers que le public.
@@ -336,39 +437,49 @@ $frere->contenuCoffre();
                 <p>
                     Les personnes ne travaillant pas pour UTrain
                 </p>
-                <p>
-                    <code>
-                        &lt;?php<br />
-                        namespace App\Utrain;<br />
-                        use App\Utrain\Interface_Utrain;<br />
-                        class PublicUser implements Interface_Utrain{<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;protected $nomUtilisateur;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;protected $statut;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;protected $prixAbo;<br />
-                        <br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function __construct($nom, $statut = ''){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->nomUtilisateur = $nom;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->statut = $statut;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getNomUtilisateur(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $this->nomUtilisateur;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getPrixAbo(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $this->prixAbo;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                <code>
+                    <pre>
+&lt;?php
+namespace App\Utrain;
 
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function setPrixAbo(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if($this->statut === 'Police'){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $this->prixAbo = Interface_Utrain::PRIXABO / 2;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $this->prixAbo = Interface_Utrain::PRIXABO;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        }<br />
-                    </code>
-                </p>
+class PublicUser implements Utrain_Interface, Toto_Interface{
+    protected $nomutilisateur;
+    protected $statut;
+    protected $prixabo;
+
+    public function __construct($nom, $statut = ''){
+        $this->nomutilisateur = $nom;
+        $this->statut = $statut;
+        $this->setPrixAbo();
+    }
+
+    public function getNomUtilisateur()
+    {
+        echo $this->nomutilisateur;
+    }
+    
+    public function getPrixAbo()
+    {
+        echo $this->prixabo;
+    }
+
+    public function setPrixAbo()
+    {
+        if($this->statut === 'Pompier'){
+            return $this->prixabo = Utrain_Interface::PRIXABO / 2;
+        }else{
+            return $this->prixabo = Utrain_Interface::PRIXABO;
+        }
+    }
+
+    public function youpi(){
+        echo Toto_Interface::TOCTOC;
+    }
+}
+                    </pre>
+                </code>
                 <?php
-                
+
                 ?>
             </article>
             <article class="col-lg-6">
@@ -378,43 +489,44 @@ $frere->contenuCoffre();
                 <p>
                     Les gens qui travaillent à Utrain.
                 </p>
-                <p>
-                    <code>
-                        &lt;?php<br />
-                        namespace App\Utrain;<br />
-                        use App\Utrain\Interface_Utrain;<br />
-                        class InternUser implements Interface_Utrain{<br />
-                        &nbsp;&nbsp;&nbsp;protected $nomUtilisateur;<br />
-                        &nbsp;&nbsp;&nbsp;protected $statut;<br />
-                        &nbsp;&nbsp;&nbsp;protected $prixAbo;<br />
-                        <br />
-                        &nbsp;&nbsp;&nbsp;public function __construct($nom, $statut = ''){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->nomUtilisateur = $nom;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->statut = $statut;<br />
-                        &nbsp;&nbsp;&nbsp;}<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getNomUtilisateur(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $this->nomUtilisateur;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getPrixAbo(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $this->prixAbo;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+                <code>
+                    <pre>
+&lt;?php
+namespace App\Utrain;
 
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function setPrixAbo(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if($this->statut === 'Cadre'){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $this->prixAbo = Interface_Utrain::PRIXABO / 6;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}else{<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $this->prixAbo = Interface_Utrain::PRIXABO / 3;<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        <br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;public function getWifi(){<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo 'L\'utilisateur du transport a le wifi sans pub';<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-                        }
-                    </code>
-                </p>
+use App\Utrain\Utrain_Interface;
+class InternUser implements Utrain_Interface{
+   protected $nomUtilisateur;
+   protected $statut;
+   protected $prixAbo;
+
+   public function __construct($nom, $statut = ''){
+        $this->nomUtilisateur = $nom;
+        $this->statut = $statut;
+        $this->setPrixAbo();
+   }
+    public function getNomUtilisateur(){
+        echo $this->nomUtilisateur;
+    }
+    public function getPrixAbo(){
+        echo $this->prixAbo;
+    }
+    public function setPrixAbo(){
+        if($this->statut === 'Cadre'){
+            return $this->prixAbo = Utrain_Interface::PRIXABO / 6;
+        }else{
+            return $this->prixAbo = Utrain_Interface::PRIXABO / 3;
+        }
+    }
+
+    public function getWifi(){
+        echo 'L\'utilisateur du transport a le wifi sans pub';
+    }
+}
+                    </pre>
+                </code>
                 <?php
-               
+
                 ?>
             </article>
         </section>
@@ -446,7 +558,7 @@ $frere->contenuCoffre();
                 </p>
                 <pre>
                 <?php
-                
+
                 ?>
                 </pre>
             </article>

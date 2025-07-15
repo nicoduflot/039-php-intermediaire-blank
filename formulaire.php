@@ -214,8 +214,8 @@
             <article class="col-md-6">
                 <h3>Téléverser des fichiers</h3>
                 <?php  ?>
-                    <div class="alert <?= ($upload)? 'alert-success': 'alert-warning' ?> alert-dismissible fade show" role="alert">
-                        <?= $messageUpload ?>
+                    <div class="alert <?php ?> 'alert-success': 'alert-warning' ?> alert-dismissible fade show" role="alert">
+                        <?php ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php  ?>
