@@ -1,5 +1,9 @@
 <?php
 
+/* la création de fichier est lancée */
+
+/* téléversement de fichiers */
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -134,33 +138,33 @@
             </article>
             <article class="col-md-6">
                 <?php
+                /* le formulaire a été envoyé et est correct */
                 
-
                     ?>
                     <div class="h4">Résultats du formulaire</div>
                     <p>
-                        <?= $nom ?>
+                        <?php ?>
                     </p>
                     <p>
-                        <?= $email ?>
+                        <?php ?>
                     </p>
                     <p>
-                        <?= $typeDemande ?>
+                        <?php ?>
                     </p>
                     <p>
-                        <?= $personne ?>
+                        <?php ?>
                     </p>
                     <p>
-                        Emailling : <?= $difEmail ?><br />
-                        Téléphone : <?= $difTel ?><br />
-                        Radio : <?= $difRadio ?><br />
-                        TV : <?= $difTv ?><br />
+                        Emailling : <?php ?> <br />
+                        Téléphone : <?php ?> <br />
+                        Radio : <?php ?> <br />
+                        TV : <?php ?> <br />
                     </p>
                     <p>
-                        <?= $detail ?>
+                       <?php ?>
                     </p>
                     <?php
-                
+                    
                 ?>
                 <h2>Les fichiers</h2>
                 <h3>Ouverture et fermeture d'un fichier</h3>
@@ -174,13 +178,17 @@
                 <p>
                     fread()
                 </p>
+                <pre>
                 <?php
                 
                 ?>
+                </pre>
                 <h4>Lire un fichier en parcellaire fgets()</h4>
+                
                 <?php
                 
                 ?>
+                
             </article>
             <article class="col-md-6">
                 <h3>Créer des fichiers</h3>
@@ -206,12 +214,12 @@
             <article class="col-md-6">
                 <h3>Téléverser des fichiers</h3>
                 <?php  ?>
-                    <div class=" alert-dismissible fade show" role="alert">
-                        <?php echo $messageUploaded ?>
+                    <div class="alert <?= ($upload)? 'alert-success': 'alert-warning' ?> alert-dismissible fade show" role="alert">
+                        <?= $messageUpload ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php  ?>
-                <form enctype="multipart/form-data" method="post" id="uploadFile">
+                <form enctype="multipart/form-data" method="post" action="./formulaire.php" id="uploadFile">
                     <input type="hidden" name="MAX_FILE_SIZE" value="30000000" />
                     <div class="mb-3">
                         <label class="form-label" for="fichier">Fichier :</label>

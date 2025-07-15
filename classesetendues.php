@@ -1,6 +1,5 @@
 <?php
 
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -70,7 +69,6 @@
                     <h2>Compte Chèque</h2>
                 </header>
                 <?php
-                /* ici on testera le compte chèque */
                 ?>
             </article>
             <article class="col-lg-6">
@@ -78,7 +76,6 @@
                     <h2>Compte Intéret</h2>
                 </header>
                 <?php
-                /* ici on testera le compte intérêts */
                 ?>
                 <div>
                     <?php
@@ -275,6 +272,9 @@ $frere->contenuCoffre();
                 <p>
                     Normalement, on ne peut que créer des comptes à intérêts ou des comptes chèques, donc la classe mère Compte devrait être une classe abstraite, définissant tous les attributs et toutes les méthodes communes aux classes filles, et seulement dans les classes filles on définit les méthodes qui sont différentes.
                 </p>
+                <?php
+                
+                ?>
             </article>
         </section>
         <section class="row">
@@ -368,7 +368,7 @@ $frere->contenuCoffre();
                     </code>
                 </p>
                 <?php
-
+                
                 ?>
             </article>
             <article class="col-lg-6">
@@ -381,9 +381,9 @@ $frere->contenuCoffre();
                 <p>
                     <code>
                         &lt;?php<br />
-                        class InternUser implements Interface_Utrain{<br />
                         namespace App\Utrain;<br />
                         use App\Utrain\Interface_Utrain;<br />
+                        class InternUser implements Interface_Utrain{<br />
                         &nbsp;&nbsp;&nbsp;protected $nomUtilisateur;<br />
                         &nbsp;&nbsp;&nbsp;protected $statut;<br />
                         &nbsp;&nbsp;&nbsp;protected $prixAbo;<br />
@@ -414,7 +414,7 @@ $frere->contenuCoffre();
                     </code>
                 </p>
                 <?php
-
+               
                 ?>
             </article>
         </section>
@@ -423,9 +423,6 @@ $frere->contenuCoffre();
                 <header>
                     <h2>les design pattern Factory</h2>
                 </header>
-                <!--
-                    https://tainix.fr/code/Design-Pattern-en-PHP-Factory
-                -->
                 <h3>Principe</h3>
                 <p>
                     La factory est une "usine à objets".
@@ -435,7 +432,7 @@ $frere->contenuCoffre();
                 </p>
                 <p>
                     Par exemple, pour créer un compte de base on fait <code>$compte = new Compte(
-                        <param du compte>);
+                        &lt;param du compte&gt;);
                     </code>
                 </p>
                 <p>
@@ -449,6 +446,7 @@ $frere->contenuCoffre();
                 </p>
                 <pre>
                 <?php
+                
                 ?>
                 </pre>
             </article>

@@ -123,6 +123,9 @@
                 <p>
                     <code>$_SESSION['objetSession'] = serialize($objetScript);</code>
                 </p>
+                <?php
+                
+                ?>
                 <p>
                     L'objet est donc enregistré ou "sérializé" dans la session PHP. Quand on arrive sur l'autre page, on peut donc récupérer cet objet de le "désérializant dans une variable"
                 </p>

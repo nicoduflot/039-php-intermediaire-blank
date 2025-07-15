@@ -29,7 +29,7 @@
                 <h3>Principes</h3>
                 <p>
                     PDO ou "Php Data Object" est un moyen de se connecter à une base de données et un moyen
-                    de manipuler cette bdd. Son avantage tiens dans le fait qu'on utilise les mêmes méthodes pour
+                    de manipuler cette bdd. Son avantage tient dans le fait qu'on utilise les mêmes méthodes pour
                     manipuler des bases de données différentes (MySql, PostGre, Oracle, etc.).
                 </p>
                 <h2>Connexion avec PDO</h2>
@@ -50,7 +50,7 @@
                 </p>
                 <code>
                     //exemple<br />
-                    $bdd = new PDO("mysql:host=localhost;dbname=026-php-inter-poo;charset=UTF8", "root", "");
+                    $bdd = new PDO("mysql:host=localhost;dbname=2025-07-07-php-inter;charset=UTF8", "root", "");
                 </code>
                 <h3>Tester la connexion</h3>
                 <?php
@@ -68,6 +68,7 @@
                     $response = $bdd->query("SELECT * FROM `jeux_video`");
                 </code>
                 <?php
+                
                 ?>
                 <p>
                     $response contient désormais le jeu d'enregistrements récupéré via la requête.
@@ -81,6 +82,7 @@
                     print_r($unEnregistrement);<br />
                 </code>
                 <?php
+                
                 ?>
                 <p>
                     fetch() renvoie l'enregistrement actuel où se trouve le curseur dans le jeu d'enregistrement.
@@ -93,6 +95,7 @@
                     $response->closeCursor();
                 </code>
                 <?php
+                
                 ?>
             </article>
             <article>
@@ -104,6 +107,8 @@
                     dans un tableau généré par une boucle
                 </p>
                 <?php
+                /*  lancer la requête suivante SELECT * FROM `Jeux_video` ORDER BY `ID` DESC */
+                
                 ?>
                 <div class="table-responsive" style="height: 300px;">
                     <table class="table table-dark table-striped">
@@ -120,29 +125,29 @@
                         </thead>
                         <tbody>
                             <?php
+                            /* on parcour les enregistrements reçus */
                             
                             ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
                                     <td style="width: 250px;">
-                                        <a href="./actionJV.php?action=mod&idJV=<?php  ?>"><button class="btn btn-primary">Modifier</button></a> 
-                                        <a href="./actionJV.php?action=sup&idJV=<?php  ?>"><button class="btn btn-danger">Supprimer</button></a>
+                                        <a href="./actionJV.php?action=mod&idJV=<?php ?>"><button class="btn btn-primary">Modifier</button></a> 
+                                        <a href="./actionJV.php?action=sup&idJV=<?php ?>"><button class="btn btn-danger">Supprimer</button></a>
                                     </td>
                                 </tr>
                             <?php
-                            
                             
                             ?>
                         </tbody>
                     </table>
                 </div>
                 <?php
-
+                
                 ?>
             </article>
             <article class="col-lg-6">
@@ -153,6 +158,13 @@
                     Si on veut pouvoir choisir des paramètres pour la recherche (comme des filtres), il faut utiliser
                     les méthodes PDO de préparation de requête.
                 </p>
+                <?php
+                /* Lier par clef dans la requête */
+
+                /* Lier par ordre dans la requête */
+
+                /* lier par clef dans la requête avec plusieurs paramètres dans execute */
+                ?>
                 <form>
                     <fieldset class="form-group my-2">
                         <label for="possesseur" class="form-label">Possesseur</label>
@@ -171,7 +183,7 @@
                     </p>
                 </form>
                 <?php
-                
+
                 ?>
                 <div class="table-responsive" style="height: 300px;">
                     <table class="table table-dark table-striped">
@@ -187,16 +199,16 @@
                         </thead>
                         <tbody>
                             <?php
+                            /* on parcour les enregistrements reçus */
                             
                             ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
                                 </tr>
                             <?php
                             
@@ -231,8 +243,8 @@
                         <input type="text" class="form-control" name="prix" id="prix" />
                     </fieldset>
                     <fieldset class="form-group my-2">
-                        <label for="nbJmax" class="form-label">Nombre de joueurs max</label>
-                        <input type="text" class="form-control" name="nbJmax" id="nbJmax" />
+                        <label for="nbre_joueurs_max" class="form-label">Nombre de joueurs max</label>
+                        <input type="text" class="form-control" name="nbre_joueurs_max" id="nbre_joueurs_max" />
                     </fieldset>
                     <fieldset class="form-group my-2">
                         <label for="commentaires" class="form-label">Commentaire</label>
@@ -243,6 +255,13 @@
                     </p>
                 </form>
                 <?php
+                
+                    ?>
+                    <script>
+                        document.location.href= './pdo.php';
+                    </script>
+                    <?php
+                
                 ?>
             </article>
         </section>

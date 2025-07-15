@@ -3,6 +3,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     include './src/Utils/head.php';
     ?>
 </head>
+
 <body data-bs-theme="dark">
     <header>
         <div class="container">
@@ -26,7 +28,9 @@
                 <header>
                     <h2>Gestion des jeux</h2>
                 </header>
-                <?php if($formMod){ ?>
+                <?php
+                /* Modification d'un jeu */
+                ?>
                     <h3>Modifier le jeu </h3>
                     <form method="post" action="./actionJV.php">
                         <input type="hidden" name="ID" value="<?php echo $id ?>" />
@@ -59,9 +63,8 @@
                         </p>
                     </form>
                 <?php
-                }
-                if($formSup){
-                ?>    
+                /* Suppression d'un jeu */
+                ?>
                     <h3>Supprimer le jeu </h3>
                     <form method="post" action="./actionJV.php">
                         <input type="hidden" name="ID" value="<?php echo $id ?>" />
@@ -72,7 +75,7 @@
                         </p>
                     </form>
                 <?php
-                }
+                /* le jeu n'existe pas */
                 ?>
             </article>
         </section>
@@ -81,4 +84,5 @@
     include './src/Widgets/footer.php';
     ?>
 </body>
+
 </html>

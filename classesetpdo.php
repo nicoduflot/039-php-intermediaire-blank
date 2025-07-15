@@ -1,5 +1,6 @@
 <?php
 
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -41,6 +42,7 @@
                     <h2>Les Comptes enregistrés</h2>
                 </header>
                 <?php
+               
                 ?>
                 <div class="table-responsive">
                     <table class="table table-dark table-striped">
@@ -59,22 +61,24 @@
                         </thead>
                         <tbody>
                             <?php
+                            /* on boucle sur les enregistrements reçus */
+                            
                             ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
                                     <td>
-                                        <a href="./gestionCompte.php?action=show&uniqueid=" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
+                                        <a href="./gestionCompte.php?action=show&id=<?= $compte['id'] ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
                                     </td>
                                 </tr>
                             <?php
-
+                            
                             ?>
                         </tbody>
                     </table>
@@ -86,6 +90,7 @@
                     <h2>Les comptes chèques enregistrés</h2>
                 </header>
                 <?php
+                
                 ?>
                 <div class="table-responsive">
                     <table class="table table-dark table-striped">
@@ -106,19 +111,20 @@
                         </thead>
                         <tbody>
                             <?php
+                            /* on boucle sur les enregistrements reçus */
                             ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><a href="./gestionCompte.php?action=show&id=<?php ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
                                     </td>
                                 </tr>
                             <?php
@@ -151,22 +157,24 @@
                         </thead>
                         <tbody>
                             <?php
+                            /* on boucle sur les enregistrements reçus */
+                            
                             ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
+                                    <td><?php ?></td>
                                     <td>
-                                        <a href="./gestionCompte.php?action=show&uniqueid=<?php echo $compte['uniqueid'] ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
+                                        <a href="./gestionCompte.php?action=show&id=<?php ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
                                     </td>
                                 </tr>
-
                             <?php
+                            
                             ?>
                         </tbody>
                     </table>

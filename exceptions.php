@@ -58,15 +58,11 @@
                 ?>
                 <h4>Exception dans PDO</h4>
                 <p>
-                    Il existe des exceptions pour PDO, mais elles ne sont pas natives dans Php, il faut
-                    les installer, il existe des dépendances sur packagist installable avec composer
+                    Il existe des exceptions pour PDO
                 </p>
-                <code>
-                    composer require php-kit/ext-pdo
-                </code>
                 <p>
                     <?php
-                    
+                
                     ?>
                 </p>
             </article>
