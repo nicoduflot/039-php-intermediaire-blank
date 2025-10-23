@@ -1,19 +1,4 @@
 <?php
-
-use App\Banque\CompteCheque;
-use App\Banque\CompteInteret;
-use App\CorpoInc\Administrateur;
-use App\CorpoInc\Editeur;
-use App\CorpoInc\UtilisateurFactory;
-use App\CorpoInc\UtilisateurStandard;
-use App\Parser\Parser_Factory;
-use App\Utrain\FreePublicUser;
-use App\Utrain\InternUser;
-use App\Utrain\PublicUser;
-use JDR\Guerrier;
-use JDR\Voleur;
-
-include './src/includes/autoload.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -83,12 +68,7 @@ include './src/includes/autoload.php';
                     <h2>Compte Chèque</h2>
                 </header>
                 <?php
-                $compteCheque = new CompteCheque('Duflot', 'Nicolas', 'CCP-987654', '0123456', 'NOM RIB', 'MON IBAN FR', '7872 8349 4456 3163', '0152', 2500);
-                var_dump($compteCheque);
-                $compteChequeDest = new CompteCheque('Dupond', 'Jacques', 'CCP-456987', '1235694', 'NOM RIB', 'MON IBAN FR', '7683 5226 0722 1061', '2905', 2000);
-                var_dump($compteChequeDest);
-                echo $compteCheque->payerParCarte('7872 8349 4456 3163', '0152', 350, $compteChequeDest);
-                echo $compteCheque->infoCompte();
+                
                 ?>
             </article>
             <article class="col-lg-6">
@@ -99,12 +79,7 @@ include './src/includes/autoload.php';
                 ?>
                 <div>
                     <?php
-                    $compteInteret = new CompteInteret('Duflot', 'Nicolas', 'CCP-987654', '0123456', 'NOM RIB', 'MON IBAN FR', 2500, 0.03);
-                    var_dump($compteInteret);
-                    echo $compteInteret->virement(200, $compteChequeDest);
-                    var_dump($compteInteret);
-                    echo $compteInteret->infoCompte();
-                    echo $compteInteret->crediterInterets();
+                    
                     ?>
                 </div>
             </article>
@@ -379,8 +354,7 @@ class Voleur extends Perso{
                     </pre>
                         </code>
                         <?php
-                        $voleur = new Voleur('Arsène');
-                        var_dump($voleur);
+                        
                         ?>
                         <h3>La classe Guerrier</h3>
                         <code>
@@ -402,8 +376,7 @@ class Guerrier extends Perso{
                     </pre>
                         </code>
                         <?php
-                        $guerrier = new Guerrier('Conan');
-                        var_dump($guerrier);
+                        
                         ?>
                     </div>
                 </div>
@@ -411,10 +384,7 @@ class Guerrier extends Perso{
             <article>
                 <h3>Voleur vs Guerrier</h3>
                 <?php
-                echo $voleur->taper($guerrier);
-                echo $guerrier->taper($voleur);
-                echo $voleur->multi($guerrier);
-                echo $guerrier->multi($voleur);
+                
                 ?>
             </article>
         </section>
@@ -519,14 +489,7 @@ class PublicUser implements Utrain_Interface, Toto_Interface{
                     </pre>
                 </code>
                 <?php
-                $publicUser = new PublicUser('Durand');
-                var_dump($publicUser);
-                $publicUser->youpi();
-                $pompier = new PublicUser('Durand', 'Pompier');
-                var_dump($pompier);
-                $ado = new FreePublicUser('Kevin', 14);
-                var_dump($ado);
-                $ado->youpi();
+                
                 ?>
             </article>
             <article class="col-lg-6">
@@ -573,10 +536,7 @@ class InternUser implements Utrain_Interface{
                     </pre>
                 </code>
                 <?php
-                $internUser = new InternUser('Charlot');
-                var_dump($internUser);
-                $cadreUser = new InternUser('Michaël Scott', 'Cadre');
-                var_dump($cadreUser);
+                
                 ?>
             </article>
         </section>
@@ -608,71 +568,12 @@ class InternUser implements Utrain_Interface{
                 </p>
                 <pre>
                 <?php
-                $userStandard = new UtilisateurStandard('Doudou', 'bisounours');
-                var_dump($userStandard);
-                var_dump($userStandard->getPermissions());
-                echo 'Login : ' . $userStandard->getLogin() . '<br/>';
-                echo 'Motdepasse ok : ' . $userStandard->verifierMotDePasse('Bisounours') . '<br/>';
-                echo 'Motdepasse ok : ' . $userStandard->verifierMotDePasse('bisounours') . '<br/>';
-                echo $userStandard->read();
-                echo $userStandard->profile();
-
-                $editeur = new Editeur('Doudou', 'bisounours');
-                var_dump($editeur);
-                var_dump($editeur->getPermissions());
-                echo 'Login : ' . $editeur->getLogin() . '<br/>';
-                echo 'Motdepasse ok : ' . $editeur->verifierMotDePasse('Bisounours') . '<br/>';
-                echo 'Motdepasse ok : ' . $editeur->verifierMotDePasse('bisounours') . '<br/>';
-                echo $editeur->read();
-                echo $editeur->profile();
-                echo $editeur->write();
-                echo $editeur->update();
-                echo $editeur->publish();
-
-                $admin = new Administrateur('Doudou', 'bisounours');
-                var_dump($admin);
-                var_dump($admin->getPermissions());
-                echo 'Login : ' . $admin->getLogin() . '<br/>';
-                echo 'Motdepasse ok : ' . $admin->verifierMotDePasse('Bisounours') . '<br/>';
-                echo 'Motdepasse ok : ' . $admin->verifierMotDePasse('bisounours') . '<br/>';
-                echo $admin->read();
-                echo $admin->profile();
-                echo $admin->write();
-                echo $admin->update();
-                echo $admin->publish();
-                echo $admin->gestionUtilisateur();
-                echo $admin->adminSite();
-
-                $doudouUser = UtilisateurFactory::creer('standard', 'Doudou', 'groscalin');
-                var_dump($doudouUser);
-
-                $doudouEditeur = UtilisateurFactory::creer('editeur', 'Doudou', 'groscalin');
-                var_dump($doudouEditeur);
-
-                $doudouAdmin = UtilisateurFactory::creer('admin', 'Doudou', 'groscalin');
-                var_dump($doudouAdmin);
-
-                var_dump($doudouAdmin->getPermissions());
-                echo 'Login : ' . $doudouAdmin->getLogin() . '<br/>';
-                echo 'Motdepasse ok : ' . $doudouAdmin->verifierMotDePasse('Bisounours') . '<br/>';
-                echo 'Motdepasse ok : ' . $admin->verifierMotDePasse('bisounours') . '<br/>';
-                echo $doudouAdmin->read();
-                echo $doudouAdmin->profile();
-                echo $doudouAdmin->write();
-                echo $doudouAdmin->update();
-                echo $doudouAdmin->publish();
-                echo $doudouAdmin->gestionUtilisateur();
-                echo $doudouAdmin->adminSite();
+                
                 ?>
                 </pre>
                 <h3>Autre exemple de Factory</h3>
                 <?php
-                $file = "./files/batch/users.json";
-                $objectJson = Parser_Factory::getParser($file);
-                var_dump($objectJson);
-                $file = "./files/batch/06-repertoire.xml";
-                $objectXml = Parser_Factory::getParser($file);
-                var_dump($objectXml);
+                
                 ?>
             </article>
         </section>

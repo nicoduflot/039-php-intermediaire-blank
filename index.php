@@ -1,11 +1,4 @@
 <?php
-session_start();
-//require_once './src/Classes/Banque/Compte.php';
-//require_once './src/Utils/Tools.php';
-include './src/includes/autoload.php';
-
-use App\Banque\Compte;
-use Utils\Tools;
 
 ?>
 <!DOCTYPE html>
@@ -90,20 +83,7 @@ use Utils\Tools;
                     Comme les attributs sont privés, il faut, pour pouvoir les lire et / ou les modifier, créer des méthodes particulières, nommées getter ( ou Assesseur, pour les lire) et setter (ou Mutateur, pour les modifier).
                 </p>
                 <?php
-                echo Compte::welcomeUser() . '<br />';
-
-                /* Création du premier objet compte */
-                $moncompte = new Compte('Duflot', 'Nicolas', 'CCP-987654', '0123456', 'NOM RIB', 'MON IBAN FR', 2500);
-                var_dump($moncompte);
-                var_dump($moncompte->getNom());
-                var_dump($moncompte->getNumagence());
-
-                $compteDestinataire = new Compte('Magic', 'Eric', 'CCP-456789', '6543210', 'RIB ERIC', 'IBAN FR ERIC', 2500);
-
-                $moncompte->virement(400, $compteDestinataire);
-                var_dump($moncompte->getSolde());
-                var_dump($moncompte->typeCompte());
-                echo $moncompte->infoCompte();
+                
                 ?>
                 <h2>Les classes statiques</h2>
                 <p>
@@ -113,8 +93,7 @@ use Utils\Tools;
                     Il est d'ailleurs IMPOSSIBLE de créer une instance de classe si elle ne possèdent pas de constructeur
                 </p>
                 <?php
-                echo Tools::PI.'<br />';
-                echo Tools::circo(3).'<br />';
+                
                 ?>
             </article>
             
@@ -260,8 +239,7 @@ $user2 = new AdminUser();
                     <code>$_SESSION['objetSession'] = serialize($objetScript);</code>
                 </p>
                 <?php
-                $_SESSION['monCompte'] = serialize($moncompte);
-                var_dump($_SESSION);
+                
                 ?>
                 <p>
                     L'objet est donc enregistré ou "sérializé" dans la session PHP. Quand on arrive sur l'autre page, on peut donc récupérer cet objet de le "désérializant dans une variable"
