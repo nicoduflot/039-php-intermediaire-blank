@@ -419,6 +419,44 @@ use App\Banque\Compte;
 use Utils\Tools;
 ```
 
+## Require vs Require_once en PHP
+
+La différence principale entre ces deux fonctions concerne le nombre de fois qu'un fichier peut être inclus dans votre script.
+
+### require
+`require` inclut et exécute un fichier à chaque fois qu'il est appelé. Si vous appelez `require` plusieurs fois avec le même fichier, ce fichier sera chargé et exécuté autant de fois. Cela peut poser problème si le fichier contient des déclarations de fonctions ou de classes, car vous risquez une erreur "la fonction/classe est déjà déclarée".
+
+```php
+require 'config.php';
+require 'config.php'; // Erreur : redéclaration !
+```
+
+### require_once
+`require_once` inclut un fichier, mais s'assure qu'il ne sera inclus qu'une seule fois durant l'exécution du script, même si vous l'appelez plusieurs fois. PHP garde une trace des fichiers déjà inclus et ignore les appels suivants.
+
+```php
+require_once 'config.php';
+require_once 'config.php'; // Ignoré, pas d'erreur
+```
+
+### Quand utiliser quoi ?
+
+**Utilisez `require_once`** dans la plupart des cas, particulièrement pour inclure :
+- Des fichiers de configuration
+- Des classes
+- Des fonctions réutilisables
+- Des fichiers de base de données
+
+**Utilisez `require`** seulement si vous voulez réellement inclure le même fichier plusieurs fois (cas rare).
+
+### Remarques importantes
+- Il existe aussi `include` et `include_once` qui fonctionnent de la même manière, mais génèrent un avertissement au lieu d'une erreur fatale si le fichier n'existe pas
+- Pour les fichiers critiques, préférez `require` ou `require_once` plutôt que `include`
+- La plupart des projets modernes utilisent des autoloaders ou Composer pour gérer les inclusions automatiquement
+
+En pratique, pour une formation intermédiaire, retenez que **`require_once` est le choix sûr par défaut** pour éviter les doublons.
+
+
 ### Utiliser Compte
 
 Le code suivant : 

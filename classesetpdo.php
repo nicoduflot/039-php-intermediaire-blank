@@ -1,6 +1,7 @@
 <?php
-
-
+session_start();
+include './src/includes/autoload.php';
+use Utils\Tools;
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,7 +43,15 @@
                     <h2>Les Comptes enregistrés</h2>
                 </header>
                 <?php
-               
+                $sqlCompte = '
+                    SELECT 
+                        * 
+                    FROM 
+                        `compte` 
+                    WHERE 
+                        `typecompte` = \'Compte\';
+                ';
+                $request = Tools::queryBDD($sqlCompte);
                 ?>
                 <div class="table-responsive">
                     <table class="table table-dark table-striped">
@@ -62,23 +71,23 @@
                         <tbody>
                             <?php
                             /* on boucle sur les enregistrements reçus */
-                            
+                            while($compte = $request->fetch(PDO::FETCH_ASSOC)){
                             ?>
                                 <tr>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
+                                    <td><?= $compte['nom'] ?></td>
+                                    <td><?= $compte['prenom'] ?></td>
+                                    <td><?= $compte['numcompte'] ?></td>
+                                    <td><?= $compte['numagence'] ?></td>
+                                    <td><?= $compte['rib'] ?></td>
+                                    <td><?= $compte['iban'] ?></td>
+                                    <td><?= $compte['solde'] ?></td>
+                                    <td><?= $compte['decouvert'] ?></td>
                                     <td>
-                                        <a href="./gestionCompte.php?action=show&id=<?= $compte['id'] ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
+                                        <a href="./gestionCompte.php?action=show&id=<?= $compte['id']  ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
                                     </td>
                                 </tr>
                             <?php
-                            
+                            }
                             ?>
                         </tbody>
                     </table>
@@ -90,7 +99,16 @@
                     <h2>Les comptes chèques enregistrés</h2>
                 </header>
                 <?php
-                
+                $sqlCompte = '
+                    SELECT 
+                        `compte`.*, `carte`.`cardnumber`, `carte`.`codepin`
+                    FROM 
+                        `compte` LEFT JOIN 
+                        `carte` ON `compte`.`cardid` = `carte`.`id`
+                    WHERE 
+                        `typecompte` = \'CompteCheque\';
+                ';
+                $request = Tools::queryBDD($sqlCompte);
                 ?>
                 <div class="table-responsive">
                     <table class="table table-dark table-striped">
@@ -112,23 +130,24 @@
                         <tbody>
                             <?php
                             /* on boucle sur les enregistrements reçus */
+                            while($compte = $request->fetch(PDO::FETCH_ASSOC)){
                             ?>
                                 <tr>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><a href="./gestionCompte.php?action=show&id=<?php ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
+                                    <td><?= $compte['nom'] ?></td>
+                                    <td><?= $compte['prenom'] ?></td>
+                                    <td><?= $compte['numcompte'] ?></td>
+                                    <td><?= $compte['numagence'] ?></td>
+                                    <td><?= $compte['rib'] ?></td>
+                                    <td><?= $compte['iban'] ?></td>
+                                    <td><?= $compte['solde'] ?></td>
+                                    <td><?= $compte['decouvert'] ?></td>
+                                    <td><?= $compte['cardnumber'] ?></td>
+                                    <td><?= $compte['codepin'] ?></td>
+                                    <td><a href="./gestionCompte.php?action=show&id=<?= $compte['id'] ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
                                     </td>
                                 </tr>
                             <?php
-                            
+                            }
                             ?>
                         </tbody>
                     </table>
@@ -139,6 +158,15 @@
                     <h2>Les comptes intérêts enregistrés</h2>
                 </header>
                 <?php
+                $sqlCompte = '
+                    SELECT 
+                        * 
+                    FROM 
+                        `compte` 
+                    WHERE 
+                        `typecompte` = \'CompteInteret\';
+                ';
+                $request = Tools::queryBDD($sqlCompte);
                 ?>
                 <div class="table-responsive">
                     <table class="table table-dark table-striped">
@@ -158,23 +186,23 @@
                         <tbody>
                             <?php
                             /* on boucle sur les enregistrements reçus */
-                            
+                            while($compte = $request->fetch(PDO::FETCH_ASSOC)){
                             ?>
                                 <tr>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
-                                    <td><?php ?></td>
+                                    <td><?= $compte['nom'] ?></td>
+                                    <td><?= $compte['prenom'] ?></td>
+                                    <td><?= $compte['numcompte'] ?></td>
+                                    <td><?= $compte['numagence'] ?></td>
+                                    <td><?= $compte['rib'] ?></td>
+                                    <td><?= $compte['iban'] ?></td>
+                                    <td><?= $compte['solde'] ?></td>
+                                    <td><?= $compte['taux'] ?></td>
                                     <td>
-                                        <a href="./gestionCompte.php?action=show&id=<?php ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
+                                        <a href="./gestionCompte.php?action=show&id=<?= $compte['id'] ?>" title="Voir le compte"><button class="btn btn-primary btn-small"><i class="bi bi-card-text"></i></button></a>
                                     </td>
                                 </tr>
                             <?php
-                            
+                            }
                             ?>
                         </tbody>
                     </table>

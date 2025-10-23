@@ -1,4 +1,11 @@
 <?php
+session_start();
+//require_once './src/Classes/Banque/Compte.php';
+//require_once './src/Utils/Tools.php';
+include './src/includes/autoload.php';
+
+use App\Banque\Compte;
+use Utils\Tools;
 
 ?>
 <!DOCTYPE html>
@@ -83,7 +90,20 @@
                     Comme les attributs sont privés, il faut, pour pouvoir les lire et / ou les modifier, créer des méthodes particulières, nommées getter ( ou Assesseur, pour les lire) et setter (ou Mutateur, pour les modifier).
                 </p>
                 <?php
-                
+                echo Compte::welcomeUser() . '<br />';
+
+                /* Création du premier objet compte */
+                $moncompte = new Compte('Duflot', 'Nicolas', 'CCP-987654', '0123456', 'NOM RIB', 'MON IBAN FR', 2500);
+                var_dump($moncompte);
+                var_dump($moncompte->getNom());
+                var_dump($moncompte->getNumagence());
+
+                $compteDestinataire = new Compte('Magic', 'Eric', 'CCP-456789', '6543210', 'RIB ERIC', 'IBAN FR ERIC', 2500);
+
+                $moncompte->virement(400, $compteDestinataire);
+                var_dump($moncompte->getSolde());
+                var_dump($moncompte->typeCompte());
+                echo $moncompte->infoCompte();
                 ?>
                 <h2>Les classes statiques</h2>
                 <p>
@@ -93,8 +113,124 @@
                     Il est d'ailleurs IMPOSSIBLE de créer une instance de classe si elle ne possèdent pas de constructeur
                 </p>
                 <?php
-                
+                echo Tools::PI.'<br />';
+                echo Tools::circo(3).'<br />';
                 ?>
+            </article>
+            
+            <article>
+                <header>
+                    <h2>Les namespaces</h2>
+                </header>
+                <h3>Pourquoi les namespaces ?</h3>
+                <p>
+                    Il est possible de retrouver dans un projet qui grandit, deux classes ayant le même nom mais pas forcément le même environnement ou la même utilité.
+                </p>
+                <code>
+                    <pre>
+/* ./src/Models/User.php */
+class User{}
+
+/* ./src/Admin/User.php */
+class User{}
+                    </pre>
+                </code>
+                <p>
+                    PHP renverra l'erreur <code>Cannot redeclare class User</code> car les deux classes seront considérée comme occupant le même espace.
+                </p>
+                                <p>
+                    Grâce aux namespaces, on pourra différencier les deux classes selon leur contexte
+                </p>
+                <code>
+                    <pre>
+/* ./src/Models/User.php */
+namespace Models;
+class User{
+    public function __construct(){
+
+    }
+
+    public function cestQui(){
+        return 'Je suis un utilisateur';
+    }
+}
+                    </pre>
+                </code>
+                <code>
+                    <pre>
+/* ./src/Admin/User.php */
+namespace Admin
+class User{
+    public function __construct(){
+
+    }
+
+    public function cestQui(){
+        return 'Je suis un administrateur';
+    }
+}
+                    </pre>
+                </code>
+                <p>
+                    Maintenant, il s'agit d'appeler les deux classes dans le fichier principal et d'indiquer qu'on les utilisent
+                </p>
+                <code>
+                    <pre>
+/* index.php */
+require './src/Models/User.php';
+require './src/Admin/User.php';
+
+$user = new Models\User();
+$admin = new Admin\User();
+                    </pre>
+                </code>
+                <ul>
+                    <li>Les namespaces servent à organiser le code et éviter les conflits de noms.</li>
+                    <li>Ils sont souvent alignés avec l’arborescence des fichiers.</li>
+                    <li>On peut utiliser use pour simplifier l’utilisation de classes avec un namespace.</li>
+                </ul>
+                <h3>Use</h3>
+                <p>
+                    Le mot-clé use permet d’importer une classe (ou une fonction ou une constante) depuis un autre espace de nom, pour éviter d’avoir à écrire son nom complet à chaque fois.
+                </p>
+                <p>
+                    Quand on veut utiliser une classe définie dans un autre namespace, on doit la référencer avec son nom complet (FQCN - Fully Qualified Class Name) :
+                </p>
+                <code>
+                    <pre>
+$user = new \App\Models\User();
+                    </pre>
+                </code>
+                <p>
+                    Peu lisible si on dois l'utiliser plusieurs fois.
+                </p>
+                <p>
+                    <b>Avec use</b>
+                </p>
+                <code>
+                    <pre>
+use App\Models\User;
+
+$user = new User();
+                    </pre>
+                </code>
+                <ul>
+                    <li>use ne charge pas une classe. Il ne fait pas de require ou d’include.</li>
+                    <li>Il sert juste à donner un raccourci local au nom complet d’une classe.</li>
+                </ul>
+                <h4>Utiliser des alias</h4>
+                <p>
+                    Quand on importe deux classes qui ont le même nom, on peut les renommer localement :
+                </p>
+                <code>
+                    <pre>
+use App\Models\User as UserModel;
+use App\Admin\User as AdminUser;
+
+$user1 = new UserModel();
+$user2 = new AdminUser();
+                    </pre>
+                </code>
             </article>
             <article>
                 <header>
@@ -124,7 +260,8 @@
                     <code>$_SESSION['objetSession'] = serialize($objetScript);</code>
                 </p>
                 <?php
-                
+                $_SESSION['monCompte'] = serialize($moncompte);
+                var_dump($_SESSION);
                 ?>
                 <p>
                     L'objet est donc enregistré ou "sérializé" dans la session PHP. Quand on arrive sur l'autre page, on peut donc récupérer cet objet de le "désérializant dans une variable"
@@ -135,6 +272,109 @@
                 <p>
                     En associant donc le destructeur avec l'enregistrement en session de l'objet, on peut donc créer un objet sur une page et l'utiliser sur les autres pages du site ou de l'application.
                 </p>
+            </article>
+            
+            <article>
+                <header>
+                    <h2>
+                        require ou require_once ?
+                    </h2>
+                </header>
+                <p>
+                    Quand on commence à organiser son code orienté objet en plusieurs fichiers, on se retrouve souvent à inclure des classes plusieurs fois sans le vouloir.
+                </p>
+                <code>
+                    <pre>
+// src/Utils/Logger.php
+class Logger {
+    public function log($msg) {
+        echo "[LOG] $msg";
+    }
+}
+
+// src/Models/User.php
+require 'src/Utils/Logger.php';
+
+class User {
+    private $logger;
+
+    public function __construct() {
+        $this->logger = new Logger();
+    }
+}
+
+//index.php
+// script.php
+require 'src/Utils/Logger.php';
+require 'src/Models/User.php';
+
+$user = new User(); // Error : Cannot redeclare class Logger
+                    </pre>
+                </code>
+                <p>
+                    require_once empêche qu’un même fichier soit inclus plusieurs fois :
+                </p>
+                <code>
+                    <pre>
+require_once 'src/Utils/Logger.php';
+require_once 'src/Models/User.php';
+                    </pre>
+                </code>
+                <p>
+                    Pour bien utiliser require_once avec la POO et les namespaces :
+                </p>
+                <ul>
+                    <li>PHP ne "sait pas" ce qu’il y a dans le fichier tant que tu ne l’as pas inclus.</li>
+                    <li>Si on ne fait pas attention à l’ordre ou aux doublons, il y aura des erreurs de redéclaration.</li>
+                    <li>C’est pourquoi, en POO moderne, on recommande de créer un utilitaire de chargement communément appelé "autoloading"</li>
+                </ul>
+                <h3>l'autoloading</h3>
+                <p>
+                    Avec les namespaces, on peut déléguer à PHP le chargement automatique des classes selon leur nom complet :
+                </p>
+                <code>
+                    <pre>
+use App\Utils\Logger;
+
+$logger = new Logger(); // PHP l’inclura automatiquement avec un autoloader
+                    </pre>
+                </code>
+                <p>
+                    Grace à un autoloader (composer inclu un autoloader comme PSR-4), PHP saura que :
+                </p>
+                <ul>
+                    <li><code>App\Utils\Logger;</code> &rarr; correspond au fichier <code>src/Utils/Logger.php</code></li>
+                    <li>Et il l'incluera une seule fois, au bon moment.</li>
+                </ul>
+                <p>
+                    Pour résumer :
+                </p>
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th><code>require</code></th>
+                            <th><code>require_once</code></th>
+                            <th><code>Autoloader (moderne)</code></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Inclut chaque fois</td>
+                            <td>Inclut une seule fois</td>
+                            <td>Charge automatiquement</td>
+                        </tr>
+                        <tr>
+                            <td>Risque de doublons</td>
+                            <td>Sécurise les inclusions</td>
+                            <td>Évite totalement les require</td>
+                        </tr>
+                        <tr>
+                            <td>Gère manuellement</td>
+                            <td>Gère manuellement</td>
+                            <td>Gère tout via les namespaces</td>
+                        </tr>
+                    </tbody>
+                </table>
             </article>
         </section>
     </main>
