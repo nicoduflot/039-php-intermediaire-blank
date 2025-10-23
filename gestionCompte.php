@@ -81,8 +81,8 @@
                                         <th colspan="2">Code Pin</th>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><?= $compte->getCarte()->getNumcarte() ?></td>
-                                        <td colspan="2"><?= $compte->getCarte()->getCodepin() ?></td>
+                                        <td colspan="2"><?php ?></td>
+                                        <td colspan="2"><?php ?></td>
                                     </tr>
                                     <?php
                                     
@@ -93,7 +93,7 @@
                                         <th>Taux d'intérêt</th>
                                     </tr>
                                     <tr>
-                                        <td><?= $compte->getTaux() ?></td>
+                                        <td><?php ?></td>
                                     </tr>
                                     <?php
                                     
